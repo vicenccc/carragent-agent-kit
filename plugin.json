@@ -1,0 +1,15 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "carragent",
+  "version": "1.0.0",
+  "description": "Look up Carragent's AI agents for small businesses and its plans and prices from a coding agent: four skills and the MCP servers of Carragent's public, read-only API. No account, no key.",
+  "author": {
+    "name": "Carragent",
+    "email": "admin@carragent.com",
+    "url": "https://carragent.com"
+  },
+  "homepage": "https://carragent.com/developers",
+  "repository": "https://github.com/vicenccc/carragent-agent-kit",
+  "license": "MIT",
+  "keywords": ["carragent", "ai-agents", "small-business", "pricing", "mcp", "skills"]
+}

@@ -1,0 +1,67 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "carragent"
+version = "1.0.0"
+description = "Python client for Carragent's public, read-only API: its AI agents for small businesses, and its plans and prices."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Carragent", email = "admin@carragent.com" }]
+keywords = ["carragent", "ai-agents", "small-business", "api-client", "sdk"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Internet :: WWW/HTTP",
+  "Typing :: Typed",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://carragent.com/developers"
+Documentation = "https://carragent.com/developers#sdks"
+Repository = "https://github.com/vicenccc/carragent-agent-kit"
+
+# Core metadata 2.4 is the first with an SPDX license expression (PEP 639). Pinned, so that the next hatchling's newer
+# default cannot make PyPI refuse an upload.
+[tool.hatch.build.targets.wheel]
+packages = ["src/carragent"]
+core-metadata-version = "2.4"
+
+[tool.hatch.build.targets.sdist]
+include = ["/src", "/tests", "/README.md", "/LICENSE", "/pyproject.toml"]
+core-metadata-version = "2.4"
+
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "C4", "SIM", "RUF"]
+
+[tool.mypy]
+strict = true
+files = ["src", "tests"]
+mypy_path = "src"
+
+[tool.pyright]
+pythonVersion = "3.9"
+typeCheckingMode = "strict"
+include = ["src", "tests"]
+extraPaths = ["src"]
+# The client checks its arguments at run time too: callers are often code that nothing type-checks.
+reportUnnecessaryIsInstance = false
+reportUnnecessaryComparison = false
