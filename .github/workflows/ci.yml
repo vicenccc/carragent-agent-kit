@@ -1,0 +1,75 @@
+# The kit's CI, in its public repository (github.com/vicenccc/carragent-agent-kit). In the site's repository this file sits under
+# agent-kit/ and GitHub does not run it.
+#
+# Every push and pull request: both SDKs' tests, offline.
+# A version tag (v1.0.0, the version in python/pyproject.toml, go.mod's module and plugin.json): the same tests, then
+# - the Python package to PyPI by trusted publishing: no token anywhere; PyPI trusts this workflow, which is set up once at
+#   pypi.org (Publishing > a trusted publisher: this repository, ci.yml, the environment "pypi");
+# - the Go module to the Go proxy, which is all a Go release needs: the tag is the release, and carragent.com/go points here.
+name: ci
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*.*.*"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # The oldest Python the package supports, and one with tomllib, which the package metadata tests need (3.11+).
+        python: ["3.9", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.21"
+      - name: Go
+        run: go vet ./... && go test ./...
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Python
+        working-directory: python
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: python -m unittest -v
+
+  pypi:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: test
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: The tag is the package's version
+        run: test "v$(python -c 'import tomllib; print(tomllib.load(open("python/pyproject.toml", "rb"))["project"]["version"])')" = "$GITHUB_REF_NAME"
+      - name: Build
+        working-directory: python
+        run: python -m pip install build && python -m build
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: python/dist
+
+  go:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - name: Ask the Go proxy for the new version
+        env:
+          GOPROXY: https://proxy.golang.org
+        run: go list -m "carragent.com/go@${GITHUB_REF_NAME}"

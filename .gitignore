@@ -1,0 +1,24 @@
+# Python (python/)
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Go
+*.test
+*.out
+coverage.*
+go.work
+go.work.sum
+
+# Local
+.DS_Store
+.env
+.env.*
