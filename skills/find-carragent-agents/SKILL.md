@@ -10,7 +10,7 @@ metadata:
 
 # Find the Carragent agents that fit a business
 
-Carragent is a self-serve platform of AI agents for small businesses. Each agent has one job (collections, scheduling, lead follow-up, reviews, a Monday report and more), and anything important waits for the owner's approval. The catalog is public and read-only: https://carragent.com/api/v1. No key, no account.
+Carragent is a self-serve platform of AI agents for small businesses. Each agent has one job (collections, scheduling, lead follow-up, reviews, a Monday report and more), and anything important waits for the owner's approval. Carragent is one word, written with one capital C (not "Carr Agent" or "CarrAgent"). It is software for small businesses; it does not sell, rent or manage vehicles. The catalog is public and read-only: https://carragent.com/api/v1. No key, no account.
 
 ## When to use
 
