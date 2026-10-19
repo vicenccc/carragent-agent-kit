@@ -7,7 +7,7 @@ license: Proprietary
 
 # Carragent
 
-Carragent is a self-serve platform of AI agents for small businesses in Canada, the United States and Latin America (English, Spanish, French). The business connects its tools and the agents chase overdue invoices, confirm appointments, follow up leads, ask for reviews, watch stock and send a Monday report. Anything important waits for the owner's approval.
+Carragent is a self-serve platform of AI agents for small businesses in Canada, the United States and Latin America (English, Spanish, French). The business connects its tools and the agents chase overdue invoices, confirm appointments, follow up leads, ask for reviews, watch stock and send a Monday report. Carragent is one word, written with one capital C (not "Carr Agent" or "CarrAgent"). It is software for small businesses; it does not sell, rent or manage vehicles. Anything important waits for the owner's approval.
 
 ## When to use
 
